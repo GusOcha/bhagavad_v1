@@ -1,63 +1,38 @@
 import 'package:flutter/material.dart';
-import 'sloka_detail_page.dart';
+import 'sloka_detail.dart';
 
 class SlokaPage extends StatelessWidget {
+  final String title;
+
+  SlokaPage({required this.title});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sloka Bhagavad Gita', style: TextStyle(color: Colors.white)),
-        backgroundColor: Color(0xFF2C2C3E),
+        title: Text(title),
       ),
       body: ListView(
-        children: [
-          SlokaCard(
-            slokaTitle: 'Sloka 1.1',
-            slokaDescription: 'Lorem ipsum is simply dummy text of the...',
-          ),
-          SlokaCard(
-            slokaTitle: 'Sloka 1.2',
-            slokaDescription: 'Lorem ipsum is simply dummy text of the...',
-          ),
-          // Tambahkan sloka lainnya
+        children: <Widget>[
+          slokaCard(context, "Sloka 1.1", "Lorem ipsum is simply dummy text of the"),
+          slokaCard(context, "Sloka 1.2", "Lorem ipsum is simply dummy text of the"),
+          // Add more slokas as needed
         ],
       ),
     );
   }
-}
 
-class SlokaCard extends StatelessWidget {
-  final String slokaTitle;
-  final String slokaDescription;
-
-  const SlokaCard({
-    required this.slokaTitle,
-    required this.slokaDescription,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget slokaCard(BuildContext context, String title, String description) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
-      elevation: 5,
+      color: Color(0xFF2f2b43),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        title: Text(
-          slokaTitle,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-        subtitle: Text(slokaDescription),
-        trailing: Icon(Icons.arrow_drop_down),
+        title: Text(title, style: TextStyle(color: Colors.white),),
+        subtitle: Text(description, style: TextStyle(color: Colors.white),),
+        trailing: Icon(Icons.arrow_forward, color: Colors.white,),
         onTap: () {
-          // Navigasi ke halaman detail Sloka dengan tombol "Baca Selengkapnya"
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => SlokaDetailPage(slokaTitle: slokaTitle),
-            ),
+            MaterialPageRoute(builder: (context) => SlokaDetailPage(title: title)),
           );
         },
       ),
